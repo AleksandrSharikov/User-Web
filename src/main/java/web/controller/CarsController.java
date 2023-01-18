@@ -23,16 +23,13 @@ public class CarsController {
     @GetMapping("/cars")
     public String printCars(@RequestParam(required = false) Optional<Integer> count, ModelMap model){
 
-        System.out.println("=========================");
         int countNotNull = count.orElse(5);
         List<String> messages = new ArrayList<>();
         List<Car> carList =carService.getCarList(countNotNull);
         for(Car car : carList)
         messages.add(car.toString());
         model.addAttribute("messages", messages);
-        System.out.println(countNotNull);
         return "cars";
-       // @RequestParam(value = "count", required = false) int count
-    }
+       }
 
 }
