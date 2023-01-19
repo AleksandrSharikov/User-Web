@@ -21,11 +21,10 @@ public class CarsController {
         this.carService = carService;
     }
     @GetMapping("/cars")
-    public String printCars(@RequestParam(required = false) Optional<Integer> count, ModelMap model){
+    public String printCars(@RequestParam(defaultValue = "5") Integer count, ModelMap model){
 
-        int countNotNull = count.orElse(5);
         List<String> messages = new ArrayList<>();
-        List<Car> carList =carService.getCarList(countNotNull);
+        List<Car> carList =carService.getCarList(count);
         for(Car car : carList)
         messages.add(car.toString());
         model.addAttribute("messages", messages);
