@@ -1,0 +1,46 @@
+package dao;
+
+import model.User;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+@Service
+public class UserDaoListImpl implements UserDao{
+    private static List<User> userList;
+    private static int id = 0;
+    public UserDaoListImpl(){
+        userList = new ArrayList<>();
+        userList.add(new User(++id,"Model1","Manufacture1",1));
+        userList.add(new User(++id,"Model2","Manufacture1",2));
+        userList.add(new User(++id,"Model3","Manufacture1",3));
+        userList.add(new User(++id,"Model4","Manufacture1",4));
+        userList.add(new User(++id,"Model5","Manufacture1",5));
+    }
+    @Override
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    @Override
+    public User getById(int id) {
+        return userList.stream().filter(user ->user.getId() == id).findAny().orElse(null);
+    }
+
+    @Override
+    public void deletUser(int id) {
+        if(id < userList.size())
+            userList.remove(id);
+    }
+
+    @Override
+    public void addUser(User user) {
+        userList.add(user);
+    }
+
+    @Override
+    public void editUser(User user, int id) {
+        userList.add(id,user);
+        userList.remove(id+1);
+    }
+}
