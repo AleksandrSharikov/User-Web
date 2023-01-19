@@ -30,16 +30,21 @@ public class UserDaoListImpl implements UserDao{
     @Override
     public void deletUser(int id) {
         if(id < userList.size())
-            userList.remove(id);
+            userList.remove(--id);
+            for(int i = id; i < userList.size(); i++)
+                userList.get(i).setId(i);
+            UserDaoListImpl.id--;
     }
 
     @Override
     public void addUser(User user) {
+        user.setId(++id);
         userList.add(user);
     }
 
     @Override
     public void editUser(User user, int id) {
+        user.setId(--id);
         userList.add(id,user);
         userList.remove(id+1);
     }
