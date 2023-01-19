@@ -4,9 +4,7 @@ import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import service.UserService;
 
 @Controller
@@ -34,5 +32,24 @@ public class UsersController {
         userService.addUser(user);
         return "redirect:/";
     }
+
+    @GetMapping("{id}/edit")
+    public String editUser(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userService.getById(id));
+        return "editUserForm";
+    }
+
+    @PostMapping("/{id}")
+    public String updateUser(@ModelAttribute("user") User user){
+        userService.editUser(user, user.getId());
+        return "redirect:/";
+    }
+
+    @GetMapping("{id}/delet")
+    public String deleteUser(@PathVariable("id") int id) {
+        userService.deletUser(id);
+        return "redirect:/";
+    }
+
 
 }

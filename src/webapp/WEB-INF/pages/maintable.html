@@ -7,7 +7,6 @@
     a {display: inline}
     b {font-size: 250%}
     b {color: red}
-    b {margin-right: 50px}
 </style>
 <head>
     <meta charset="UTF-8">
@@ -17,7 +16,8 @@
 <body>
 <div>
     <th:block th:each="user : ${userlist}">
-        <a th:text="${user}"></a><b>Delet</b>
+        <a th:href="@{/{id}/edit(id=${user.getId()})}" th:text="${user}">Text</a>
+        <a style="color: red" th:href="@{/{id}/delet(id=${user.getId()})}" th:text="Delet">Text</a>
         <br/>
     </th:block>
     <br/>

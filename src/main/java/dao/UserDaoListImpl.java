@@ -44,8 +44,8 @@ public class UserDaoListImpl implements UserDao{
 
     @Override
     public void editUser(User user, int id) {
-        user.setId(--id);
-        userList.add(id,user);
-        userList.remove(id+1);
+        userList.get(--id).setName(user.getName());
+        userList.get(id).setSurname(user.getSurname());
+        userList.get(id).setAge(user.getAge());
     }
 }
