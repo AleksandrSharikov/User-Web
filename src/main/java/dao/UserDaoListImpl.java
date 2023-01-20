@@ -1,11 +1,13 @@
 package dao;
 
 import model.User;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 @Service
+@Primary
 public class UserDaoListImpl implements UserDao{
     private static List<User> userList;
     private static int id = 0;
@@ -31,8 +33,6 @@ public class UserDaoListImpl implements UserDao{
     public void deletUser(int id) {
         if(id < userList.size())
             userList.remove(--id);
-            for(int i = id; i < userList.size(); i++)
-                userList.get(i).setId(i);
             UserDaoListImpl.id--;
     }
 

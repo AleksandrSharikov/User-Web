@@ -39,7 +39,7 @@ public class UsersController {
         return "editUserForm";
     }
 
-    @PostMapping("/{id}")
+    @PatchMapping("/{id}")
     public String updateUser(@ModelAttribute("user") User user){
         userService.editUser(user, user.getId());
         return "redirect:/";
