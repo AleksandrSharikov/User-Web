@@ -18,6 +18,11 @@ public class UserDaoListImpl implements UserDao{
         userList.add(new User(++id,"Model3","Manufacture1",3));
         userList.add(new User(++id,"Model4","Manufacture1",4));
         userList.add(new User(++id,"Model5","Manufacture1",5));
+        userList.add(new User(++id,"Model1","Manufacture1",6));
+        userList.add(new User(++id,"Model2","Manufacture1",7));
+        userList.add(new User(++id,"Model3","Manufacture1",8));
+        userList.add(new User(++id,"Model4","Manufacture1",9));
+        userList.add(new User(++id,"Model5","Manufacture1",10));
     }
     @Override
     public List<User> getUserList() {
@@ -31,8 +36,12 @@ public class UserDaoListImpl implements UserDao{
 
     @Override
     public void deletUser(int id) {
-        if(id < userList.size())
+        if(id <= userList.size())
             userList.remove(--id);
+            for (int i = id; i<userList.size();){
+                userList.get(i).setName("refactor");
+                userList.get(i).setId(++i);
+                }
             UserDaoListImpl.id--;
     }
 

@@ -7,22 +7,55 @@
     a {display: inline}
     b {font-size: 250%}
     b {color: red}
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        }
+    table{text-align: center}
+    table
+    {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    p {text-align: center}
+
+
 </style>
+
 <head>
     <meta charset="UTF-8">
     <title>Список пользователей</title>
 
 </head>
-<body>
-<div>
+
+<p>Список пользователей</p>
+<table>
+    <tr style="font-size: 300%">
+        <th>ID</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Age</th>
+        <th></th>
+    </tr>
     <th:block th:each="user : ${userlist}">
-        <a th:href="@{/{id}/edit(id=${user.getId()})}" th:text="${user}">Text</a>
-        <a style="color: red" th:href="@{/{id}/delet(id=${user.getId()})}" th:text="Delet">Text</a>
-        <br/>
+    <tr>
+        <td><a th:href="@{/{id}/edit(id=${user.getId()})}" th:text="${user.getId()}">Text</a></td>
+        <td><a th:href="@{/{id}/edit(id=${user.getId()})}" th:text="${user.getName()}">Text</a></td>
+        <td><a th:href="@{/{id}/edit(id=${user.getId()})}" th:text="${user.getSurname()}">Text</a></td>
+        <td><a th:href="@{/{id}/edit(id=${user.getId()})}" th:text="${user.getAge()}">Text</a></td>
+
+        <td><form th:method="POST" th:action="@{/{id}/delet(id=${user.getId()})}" th:object="${user}"><input type="submit" value="Delet"></form></td>
+    </tr>
     </th:block>
-    <br/>
-    <br/>
-    <a th:href="@{/new}" style="color:green">Add user</a>
-</div>
+    <tr>
+        <td></td>
+    <td colspan="2">
+        <a th:href="@{/new}" style="color:green">Add user</a>
+    </td>
+        <td colspan="2"></td>
+    </tr>
+</table>
+
+
 </body>
 </html>

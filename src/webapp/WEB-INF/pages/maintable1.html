@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<style>
+    a {font-size: 250%}
+    p {font-size: 250%}
+    a {display: inline}
+    b {font-size: 250%}
+    b {color: red}
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Список пользователей</title>
+
+</head>
+<body>
+<div>
+    <th:block th:each="user : ${userlist}">
+        <a th:href="@{/{id}/edit(id=${user.getId()})}" th:text="${user}">Text</a>
+        <a style="color: red" th:href="@{/{id}/delet(id=${user.getId()})}" th:text="Delet">Text</a>
+        <br/>
+    </th:block>
+    <br/>
+    <br/>
+    <a th:href="@{/new}" style="color:green">Add user</a>
+</div>
+</body>
+</html>
