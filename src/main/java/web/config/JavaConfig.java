@@ -1,28 +1,30 @@
+
 package web.config;
 
-import model.User;
-import org.hibernate.ejb.AvailableSettings;
 import org.hibernate.jpa.HibernatePersistenceProvider;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.instrument.classloading.ReflectiveLoadTimeWeaver;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
-
 
 @Configuration
 @PropertySource("classpath:db.properties")
@@ -30,12 +32,20 @@ import java.util.Properties;
 @ComponentScan(basePackageClasses = JavaConfig.class)
 public class JavaConfig {
 
-@Autowired
-private Environment env;
+   private final ApplicationContext applicationContext;
+   private final Environment env;
+
+   public JavaConfig(ApplicationContext applicationContext, Environment env) {
+      this.applicationContext = applicationContext;
+      this.env = env;
+   }
+
+//@Autowired
+//private Environment env;
    //@PersistenceContext
   // public PersistenceAnnotationBeanPostProcessor persistenceAnnotationBeanPostProcessor;
 
-   @Bean
+ //  @Bean
    public DataSource dataSource() {
       DriverManagerDataSource dataSource = new DriverManagerDataSource();
       dataSource.setDriverClassName(env.getProperty("db.driver"));
@@ -65,16 +75,17 @@ private Environment env;
    @Bean
    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
 
-      LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-      entityManagerFactoryBean.setJpaVendorAdapter(vendorAdaptor());
-      entityManagerFactoryBean.setDataSource(dataSource());
-      entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-      entityManagerFactoryBean.setPackagesToScan("model");
-      entityManagerFactoryBean.setJpaProperties(jpaHibernateProperties());
+      LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+      emf.setJpaVendorAdapter(vendorAdaptor());
+      emf.setDataSource(dataSource());
+      emf.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+      emf.setPackagesToScan("model");
+      emf.setJpaProperties(jpaHibernateProperties());
       System.out.println(7);
 
-      return entityManagerFactoryBean;
+      return emf;
    }
+
 
    private Properties jpaHibernateProperties() {
 
@@ -88,4 +99,9 @@ private Environment env;
       return properties;
    }
 
+   @Bean
+   public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+      return new JpaTransactionManager(emf);
+   }
 }
+
