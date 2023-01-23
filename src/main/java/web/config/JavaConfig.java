@@ -29,73 +29,11 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan(basePackageClasses = JavaConfig.class)
 public class JavaConfig {
-/*
-   @Autowired
-   private Environment env;
 
-    @Bean
-   public DataSource getDataSource() {
-      DriverManagerDataSource dataSource = new DriverManagerDataSource();
-      dataSource .setDriverClassName(env.getProperty("db.driver"));
-      dataSource.setUrl(env.getProperty("db.url"));
-      dataSource.setUsername(env.getProperty("db.username"));
-      dataSource.setPassword(env.getProperty("db.password"));
-      return dataSource;
-   }
- /*
- @Bean
-   public LocalSessionFactoryBean getSessionFactory() {
-      LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-      factoryBean.setDataSource(getDataSource());
-      
-      Properties props=new Properties();
-      props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-      props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-      props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-
-      factoryBean.setHibernateProperties(props);
-      factoryBean.setAnnotatedClasses(new Class[] {User.class});
-      return factoryBean;
-   }
-
-   @Bean
-   public HibernateTransactionManager getTransactionManager() {
-      HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-      transactionManager.setSessionFactory(getSessionFactory().getObject());
-      return transactionManager;
-
-
-   @Bean
-   public LocalContainerEntityManagerFactoryBean emf(){
-      Properties properties = new Properties();
-    /*  props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-      props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-      props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-
-      properties.put("javax.persistence.jdbc.driver", env.getProperty("db.driver"));
-      properties.put("javax.persistence.jdbc.url", "db.url");
-      properties.put("javax.persistence.jdbc.user", "db.username"); //if needed
-      properties.put("javax.persistence.jdbc.password", "db.password"); //if needed
-
-      properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-      properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-      properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-
-      LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
-     // emf.setPersistenceProvider(org.hibernate.jpa.HibernatePersistenceProvider);
-      emf.setPersistenceProviderClass(org.hibernate.jpa.HibernatePersistenceProvider.class); //If your using eclipse or change it to whatever you're using
-      emf.setPackagesToScan("model"); //The packages to search for Entities, line required to avoid looking into the persistence.xml
-      emf.setPersistenceUnitName("leaseManagementPU");
-      emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-      emf.setJpaProperties(properties);
-      emf.setJtaDataSource(getDataSource());
-      emf.setLoadTimeWeaver(new ReflectiveLoadTimeWeaver()); //required unless you know what your doing
-      return emf;
-   }*/
 @Autowired
 private Environment env;
- //  @PersistenceContext
-  // public PersistenceAnnotationBeanPostProcessor persistenceAnnotationBeanPostProcessor;
+   @PersistenceContext
+   public PersistenceAnnotationBeanPostProcessor persistenceAnnotationBeanPostProcessor;
 
    @Bean//(destroyMethod = "close")
    public DataSource dataSource() {

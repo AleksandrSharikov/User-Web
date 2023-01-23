@@ -1,5 +1,6 @@
 package web.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,12 +16,10 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @EnableWebMvc
 @ComponentScan(basePackages = {"web","service","dao"})
 public class WebConfig implements WebMvcConfigurer {
+    @Autowired
+    private ApplicationContext applicationContext;
 
-    private final ApplicationContext applicationContext;
-
-    public WebConfig(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
+   // public WebConfig(ApplicationContext applicationContext) {        this.applicationContext = applicationContext;    }
 
 
     @Bean

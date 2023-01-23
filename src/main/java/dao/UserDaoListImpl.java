@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 @Service
-@Primary
+
 public class UserDaoListImpl implements UserDao{
     private static List<User> userList;
     private static int id = 0;

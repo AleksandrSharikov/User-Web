@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
+<style>
+    table {font-size: 250%}
+    input {font-size: 125%}
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Новый пользователь</title>
@@ -9,17 +13,24 @@
 <body>
 
 <form th:method="POST" th:action="@{/}" th:object="${user}">
-    <label for="name">Enter name</label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <br/>
-    <label for="name">Enter surname</label>
-    <input type="text" th:field="*{surname}" id="surname"/>
-    <br/>
-    <label for="name">Enter name</label>
-    <input type="text" th:field="*{age}" id="age"/>
-    <br/>
-    <input type="submit" value="Save">
-</form>
+    <table>
+        <tr>
+            <td><label for="name">Enter name</label></td>
+            <td><input type="text" th:field="*{name}" id="name"/></td>
+        </tr>
 
+        <tr>
+            <td><label for="name">Enter surname</label></td>
+            <td><input type="text" th:field="*{surname}" id="surname"/></td>
+        </tr>
+        <tr>
+            <td><label for="name">Enter name</label></td>
+            <td><input type="text" th:field="*{age}" id="age"/></td>
+        </tr>
+    <tr>
+        <td colspan="2" style="text-align: end"><input type="submit" value="Save"></td>
+    </tr>
+    </table>
+</form>
 </body>
 </html>
