@@ -1,5 +1,6 @@
 package web.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -45,6 +46,7 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     }
 
 // Ru filter
+
     @Override
     protected Filter[] getServletFilters() {
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();

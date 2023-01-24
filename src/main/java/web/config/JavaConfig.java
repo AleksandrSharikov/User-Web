@@ -1,7 +1,6 @@
 
 package web.config;
 
-import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -78,7 +77,7 @@ public class JavaConfig {
       LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
       emf.setJpaVendorAdapter(vendorAdaptor());
       emf.setDataSource(dataSource());
-      emf.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+     // emf.setPersistenceProviderClass(HibernatePersistenceProvider.class);
       emf.setPackagesToScan("model");
       emf.setJpaProperties(jpaHibernateProperties());
       System.out.println(7);
@@ -99,7 +98,7 @@ public class JavaConfig {
       return properties;
    }
 
-   @Bean
+ //  @Bean
    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
       return new JpaTransactionManager(emf);
    }
