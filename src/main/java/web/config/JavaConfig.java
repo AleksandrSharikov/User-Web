@@ -9,17 +9,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -39,12 +32,7 @@ public class JavaConfig {
       this.env = env;
    }
 
-//@Autowired
-//private Environment env;
-   //@PersistenceContext
-  // public PersistenceAnnotationBeanPostProcessor persistenceAnnotationBeanPostProcessor;
 
- //  @Bean
    public DataSource dataSource() {
       DriverManagerDataSource dataSource = new DriverManagerDataSource();
       dataSource.setDriverClassName(env.getProperty("db.driver"));
@@ -77,7 +65,6 @@ public class JavaConfig {
       LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
       emf.setJpaVendorAdapter(vendorAdaptor());
       emf.setDataSource(dataSource());
-     // emf.setPersistenceProviderClass(HibernatePersistenceProvider.class);
       emf.setPackagesToScan("model");
       emf.setJpaProperties(jpaHibernateProperties());
       System.out.println(7);
@@ -98,9 +85,5 @@ public class JavaConfig {
       return properties;
    }
 
- //  @Bean
-   public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-      return new JpaTransactionManager(emf);
-   }
 }
 
