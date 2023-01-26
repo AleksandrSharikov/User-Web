@@ -11,17 +11,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Primary
-public class UserDaoEntityImpl implements UserDao{
+public class UserDaoImpl implements UserDao{
 
     @PersistenceContext//(unitName = "entityManagerFactoryBean")
     private EntityManager entityManager;
 
-   // public UserDaoEntityImpl(EntityManager entityManager){this.entityManager = entityManager;}
     @Override
     public List<User> getUserList() {
 
@@ -33,12 +30,11 @@ public class UserDaoEntityImpl implements UserDao{
     @Override
     public User getById(int id) {
 
-        return (User) entityManager.find(User.class, id);
+        return entityManager.find(User.class, id);
     }
 
 
     @Override
-    @Transactional
     public void deletUser(int id) {
 
         User user = getById(id);
@@ -48,7 +44,6 @@ public class UserDaoEntityImpl implements UserDao{
 
 
 
-    @Transactional
     @Override
     public void addUser(User user) {
 
@@ -58,13 +53,8 @@ public class UserDaoEntityImpl implements UserDao{
 
 
     @Override
-    @Transactional
     public void editUser(User user, int id) {
 
-      /*  User userDel = getById(id);
-        if (userDel != null)
-            entityManager.remove(userDel);
-        entityManager.persist(user);*/
         entityManager.merge(user);
 
     }
